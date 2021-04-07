@@ -75,9 +75,19 @@ namespace StoreAPI.Data.Repositories
             _items.Add(newItem);
             return newItem;
         }
-        /*public SaleModel CreateFood(SaleModel newSale)
-{
 
-}*/
+        public SaleModel CreateSale(long itemId, SaleModel newSale)
+        {
+            newSale.ItemId = itemId;//to avoid chainging the id
+            var nextId = _sales.OrderByDescending(s => s.Id).FirstOrDefault().Id + 1;//gets las Id and adds 1 to it
+            newSale.Id = nextId;
+            _sales.Add(newSale);
+            return newSale;
+        }
+
+        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type")
+        {
+            throw new NotImplementedException();
+        }
     }
 }

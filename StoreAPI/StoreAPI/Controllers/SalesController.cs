@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StoreAPI.Exceptions;
 using StoreAPI.Models;
 using StoreAPI.Services;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StoreAPI.Controllers
 {
-    [Route("api/items/{saleId:long}/[Controller]")]
+    [Route("api/items/{itemId:long}/[Controller]")]
     public class SalesController : Controller
     {
         private ISalesService _salesService;
@@ -19,8 +20,8 @@ namespace StoreAPI.Controllers
         }
 
         //ENDPOINTS
-       /* [HttpPost]
-        public ActionResult<SaleModel> CreateSale(long itemId, [FromBody] SaleModel newSale)
+        [HttpPost()]
+        public IActionResult CreateSale(long itemId, [FromBody] SaleModel newSale) //ActionResult<ProductModel>
         {
             try
             {
@@ -39,6 +40,24 @@ namespace StoreAPI.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
-        }*/
+        }
+
+        [HttpGet("income")]
+        public ActionResult<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type")
+        {
+            try
+            {
+                var income = _salesService.GetIncome(itemId, saleId, filterBy);
+                return Ok(income);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace StoreAPI.Data.Repositories
         //ITEM
         public ItemModel CreateItem(ItemModel newItem);
         //SALE
-       // public SaleModel CreateFood(SaleModel newSale);
+        public SaleModel CreateSale(long itemId, SaleModel newSale);
+        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type");
     }
 }
