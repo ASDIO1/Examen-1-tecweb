@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "794c98fa-df99-4a3a-992c-6170f7a31a6d",
+		"name": "StoreAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\" : 1,\r\n    \"Name\" : \"Nike Sweater\",\r\n    \"Type\" : \"Clothing\",\r\n    \"PurchasePrice\" : 20,\r\n    \"SalePrice\" : 25,\r\n    \"Stock\" : 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sale",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Quantity\" : 5,\r\n    \"ClientName\" : \"Jenny\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3030/api/items/1/sales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"items",
+						"1",
+						"sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Income by filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/items/1/sales/income?filterBy=Name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"items",
+						"1",
+						"sales",
+						"income"
+					],
+					"query": [
+						{
+							"key": "filterBy",
+							"value": "Name"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

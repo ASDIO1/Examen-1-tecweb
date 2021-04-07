@@ -12,6 +12,6 @@ namespace StoreAPI.Data.Repositories
         public ItemModel CreateItem(ItemModel newItem);
         //SALE
         public SaleModel CreateSale(long itemId, SaleModel newSale);
-        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type");
+        public IEnumerable<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type");
     }
 }

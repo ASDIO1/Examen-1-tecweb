@@ -85,9 +85,48 @@ namespace StoreAPI.Data.Repositories
             return newSale;
         }
 
-        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type")
+        public IEnumerable<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type")
         {
-            throw new NotImplementedException();
+            //var sale = _sales.FirstOrDefault(s => s.Id == saleId); //Gets the specified Sale
+            //var item = _items.FirstOrDefault(i => i.Id == itemId);
+            List<IncomeModel> salesIncome = new List<IncomeModel>();
+            switch (filterBy.ToLower())
+            {
+                case "name":
+                    var items = _items.OrderBy(s => s.Name);
+                    foreach (ItemModel item in items)
+                    {
+                        var sales = _sales.Where(s => s.ItemId == item.Id);
+                        foreach (SaleModel sale in sales)
+                        {
+                            float income = (item.SalePrice - item.PurchasePrice) * sale.Quantity;
+                            salesIncome.Add(new IncomeModel
+                            {
+                                ItemName = item.Name,
+                                ItemType = item.Type,
+                                Income = income
+                            });
+                            item.Stock = item.Stock - sale.Quantity; //Reduces stock
+                        }
+
+                    }
+                    return salesIncome;
+                default:
+                    var items2 = _items.OrderBy(s => s.Type);
+                    foreach (ItemModel item in items2)
+                    {
+                        var sales = _sales.Where(s => s.ItemId == item.Id);
+                        foreach (SaleModel sale in sales)
+                        {
+                            float income = (item.SalePrice - item.PurchasePrice) * sale.Quantity;
+                            salesIncome.Add(new IncomeModel { 
+                                ItemName = item.Name, ItemType = item.Type , Income = income});
+                            item.Stock = item.Stock - sale.Quantity; //Reduces stock
+                        }
+
+                    }
+                    return salesIncome;
+            }
         }
     }
 }

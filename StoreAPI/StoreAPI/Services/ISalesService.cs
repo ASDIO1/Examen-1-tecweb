@@ -9,6 +9,6 @@ namespace StoreAPI.Services
     public interface ISalesService
     {
         public SaleModel CreateSale(long itemId, SaleModel newSale);
-        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type");
+        public IEnumerable<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type");
     }
 }

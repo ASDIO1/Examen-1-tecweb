@@ -42,8 +42,8 @@ namespace StoreAPI.Controllers
             }
         }
 
-        [HttpGet("income")]
-        public ActionResult<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type")
+        [HttpGet("income")]  //I didnt use the  itemID and the saleID at the end
+        public ActionResult<IEnumerable<IncomeModel>> GetIncome(long itemId, long saleId, string filterBy = "Type")
         {
             try
             {

@@ -10,6 +10,6 @@ namespace StoreAPI.Models
         //public long Id { get; set; }
         public string ItemName { get; set; }
         public string ItemType { get; set; }
-        public long Income { get; set; }
+        public float Income { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace StoreAPI.Services
             return createdSale;
         }
 
-        public IncomeModel GetIncome(long itemId, long saleId, string filterBy = "Type")
+        public IEnumerable<IncomeModel> GetIncome(long itemId, long saleId, string filterBy = "Type")
         {
             if (!_allowedFilterByValues.Contains(filterBy.ToLower()))
                 throw new InvalidOperationItemException($"The income filterBy value: {filterBy} is invalid, please use one of {String.Join(',', _allowedFilterByValues.ToArray())}");
